@@ -146,7 +146,7 @@ class Board:
                     self.count += 1
                     self.contour(ship, verb = True)
                     print("Корабль уничтожен!")
-                    return False
+                    return True
                 else:
                     print("Корабль ранен!")
                     return True
