@@ -90,6 +90,19 @@ class Board:
                     if verb:
                         self.field[cur.x][cur.y] = "."
                     self.busy.append(cur)
+    
+    @staticmethod
+    def display_nearby(user_board, ai_board):
+        print("Доска пользователя:", "Доска компьютера:", sep='\t\t')
+        counter = 0
+        print("  | 1 | 2 | 3 | 4 | 5 | 6 |", "  | 1 | 2 | 3 | 4 | 5 | 6 |", sep='\t')
+        while counter < user_board.size:
+            display = ""
+            display += user_board.get_line(counter)
+            display += '\t'
+            display += ai_board.get_line(counter)
+            print(display)
+            counter += 1
 
     def get_line(self, number):
         line = self.field[number]
@@ -230,17 +243,7 @@ class Game:
     def loop(self):
         num = 0
         while True:
-            print("Доска пользователя:", "Доска компьютера:", sep='\t\t')
-            counter = 0
-            print("  | 1 | 2 | 3 | 4 | 5 | 6 |", "  | 1 | 2 | 3 | 4 | 5 | 6 |", sep='\t')
-            while counter < self.size:
-                display = ""
-                display += self.us.board.get_line(counter)
-                display += '\t'
-                display += self.ai.board.get_line(counter)
-                print(display)
-                counter += 1
-
+            Board.display_nearby(self.us.board, self.ai.board)
             if num % 2 == 0:
                 print("-"*20)
                 print("Ходит пользователь!")
