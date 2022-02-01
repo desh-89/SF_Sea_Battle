@@ -1,4 +1,5 @@
 from random import randint
+from time import sleep
 
 class Dot:
     def __init__(self, x, y):
@@ -257,6 +258,8 @@ class Game:
             else:
                 print("-"*20)
                 print("Ходит компьютер!")
+                delay_time = randint(1, 5)
+                sleep(delay_time)
                 repeat = self.ai.move()
             if repeat:
                 num -= 1
