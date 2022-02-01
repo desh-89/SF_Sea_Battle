@@ -56,6 +56,7 @@ class Ship:
 class Board:
     def __init__(self, hid = False, size = 6):
         self.size = size
+        self.name = '<name_not_defined>'
         self.hid = hid
         
         self.count = 0
@@ -64,6 +65,9 @@ class Board:
         
         self.busy = []
         self.ships = []
+
+    def set_name(self, name):
+        self.name = name
     
     def add_ship(self, ship):
         
@@ -93,7 +97,7 @@ class Board:
     
     @staticmethod
     def display_nearby(user_board, ai_board):
-        print("Доска пользователя:", "Доска компьютера:", sep='\t\t')
+        print(f"{user_board.name}:", f"{ai_board.name}:", sep='\t\t')
         counter = 0
         print("  | 1 | 2 | 3 | 4 | 5 | 6 |", "  | 1 | 2 | 3 | 4 | 5 | 6 |", sep='\t')
         while counter < user_board.size:
@@ -199,7 +203,9 @@ class Game:
     def __init__(self, size = 6):
         self.size = size
         pl = self.random_board()
+        pl.set_name("Доска пользователя")
         co = self.random_board()
+        co.set_name("Доска компьютера")
         co.hid = True
         
         self.ai = AI(co, pl)
@@ -243,7 +249,7 @@ class Game:
     def loop(self):
         num = 0
         while True:
-            Board.display_nearby(self.us.board, self.ai.board)
+            Board.display_nearby(self.ai.board, self.us.board)
             if num % 2 == 0:
                 print("-"*20)
                 print("Ходит пользователь!")
