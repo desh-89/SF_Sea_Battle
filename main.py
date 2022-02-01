@@ -90,7 +90,14 @@ class Board:
                     if verb:
                         self.field[cur.x][cur.y] = "."
                     self.busy.append(cur)
-    
+
+    def get_line(self, number):
+        line = self.field[number]
+        res = f"{number+1} | " + " | ".join(line) + " |"
+        if self.hid:
+            res = res.replace("■", "O")
+        return res
+
     def __str__(self):
         res = ""
         res += "  | 1 | 2 | 3 | 4 | 5 | 6 |"
@@ -223,12 +230,17 @@ class Game:
     def loop(self):
         num = 0
         while True:
-            print("-"*20)
-            print("Доска пользователя:")
-            print(self.us.board)
-            print("-"*20)
-            print("Доска компьютера:")
-            print(self.ai.board)
+            print("Доска пользователя:", "Доска компьютера:", sep='\t\t')
+            counter = 0
+            print("  | 1 | 2 | 3 | 4 | 5 | 6 |", "  | 1 | 2 | 3 | 4 | 5 | 6 |", sep='\t')
+            while counter < self.size:
+                display = ""
+                display += self.us.board.get_line(counter)
+                display += '\t'
+                display += self.ai.board.get_line(counter)
+                print(display)
+                counter += 1
+
             if num % 2 == 0:
                 print("-"*20)
                 print("Ходит пользователь!")
