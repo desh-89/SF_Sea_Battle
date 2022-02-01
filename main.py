@@ -145,14 +145,14 @@ class Board:
                 if ship.lives == 0:
                     self.count += 1
                     self.contour(ship, verb = True)
-                    print("Корабль уничтожен!")
+                    print("Корабль уничтожен!", '\n')
                     return True
                 else:
-                    print("Корабль ранен!")
+                    print("Корабль ранен!", '\n')
                     return True
         
         self.field[d.x][d.y] = "."
-        print("Мимо!")
+        print("Мимо!", '\n')
         return False
     
     def begin(self):
@@ -245,18 +245,21 @@ class Game:
         print(" формат ввода: x y ")
         print(" x - номер строки  ")
         print(" y - номер столбца ")
+        print("-------------------", '\n')
     
     
     def loop(self):
         num = 0
         while True:
+            def print_separator():
+                print('\n')
             Board.display_nearby(self.ai.board, self.us.board)
             if num % 2 == 0:
-                print("-"*20)
+                print_separator()
                 print("Ходит пользователь!")
                 repeat = self.us.move()
             else:
-                print("-"*20)
+                print_separator()
                 print("Ходит компьютер!")
                 delay_time = randint(1, 5)
                 sleep(delay_time)
@@ -265,12 +268,12 @@ class Game:
                 num -= 1
             
             if self.ai.board.count == 7:
-                print("-"*20)
+                print_separator()
                 print("Пользователь выиграл!")
                 break
             
             if self.us.board.count == 7:
-                print("-"*20)
+                print_separator()
                 print("Компьютер выиграл!")
                 break
             num += 1
